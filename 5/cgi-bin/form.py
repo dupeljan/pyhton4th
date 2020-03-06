@@ -4,9 +4,21 @@ import html
 import sqlite3
 
 form = cgi.FieldStorage()
-text1 = form.getfirst("TEXT_1","не задано")
-text1 = html.escape(text1)
+idobject = form.getfirst("id","1")
+type_ = form.getfirst("idobject_type","0")
+radius = form.getfirst("radius","1")
+mass = form.getfirst("mass","1")
+name = form.getfirst("name","NULL")
 
+inp = [html.escape(x) for x in (  idobject,"0",type_,name,radius,mass)]
+inp[3] = '"' + inp[3] +'"' 
+
+conn = sqlite3.connect('example.db')
+cur = conn.cursor()
+
+sql = "INSERT INTO object (idobject,system_idsystem,type_idtye,name,radius,mass) VALUES ({},{},{},{},{},{});"
+cur.execute(sql.format(*inp)) 
+conn.commit()
 
 
 print("Content-type: text/html\n")
@@ -19,27 +31,9 @@ print("""<!DOCTYPE HTML>
         <body>""")
 
 print("<h1>Обработка данных форм!</h1>")
-print("<p>TEXT_1: {}</p>".format(text1))
+print("<p>",sql.format(*inp),"</p>")
 
 
-
-
-
-conn = sqlite3.connect('example.db')
-cur = conn.cursor()
-
-attr = ("idobject", "o.name","radius","mass","s.name","t.name")
-sql = """
-select {},{},{},{},{},{} from
-   (object o join system s on o.system_idsystem=s.idsystem) a
-   join type t on a.type_idtye = t.idtye;
-""".format(*attr)
-
-cur.execute(sql)
-resutl  = cur.fetchall()
-print(attr)
-for x in resutl:
-	print(x,"<br>")
 
 print("""</body>
         </html>""")
