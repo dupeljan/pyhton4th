@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>DATA INPUT</title>
+</head>
+<body>
+<form action= "/cgi-bin/form.py">
+	<label for="idname">Имя</label><br>
+	<input type="text" name="name" id="idname"><br>
+	<label for="idobject_type">Тип</label><br>
+	<select name="object_type" id ="idobject_type"><br>
+		<option value="0">Планета</option><br>
+		<option value="1">Звезда</option><br>
+		<option value="2">Спутник</option><br>
+		<option value="3">Карликовая планета</option><br>	
+	</select>	
+	<br><label for="idmass">Масса (в Земных единицах)</label><br>
+	<input type="text" name="mass"  id="idmass"><br>
+	<label for="idmass">Радиус (в Земных единицах)</label><br>
+	<input type="text" name="radius" id="idradius"><br>
+	<input type="submit">
+</form>
+</body>
+</html>
