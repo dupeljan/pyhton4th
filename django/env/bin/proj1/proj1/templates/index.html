@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+</head>
+<title>{{title}}</title>
+<body>
+	
+{%for i in queryset%}
+<div>
+	<h2>{{i.title}}</h2>
+	<p>{{i.content}}</p>
+	<p><i>{{i.post_author}}</i></p>
+</div>
+{%endfor%}
+
+</body>
+</html>
