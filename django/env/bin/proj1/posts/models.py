@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Meta:
@@ -11,8 +12,8 @@ class Post (models.Model):
 	genre = (('r1','Роман'),('p','Поэма'),('r2','Рассказ'))
 	genre = models.CharField(max_length=30,verbose_name="Жанр",choices= genre,default='r1')
 	content = models.TextField(verbose_name="Текст",default= "Дефолтный текст")
-	timestamp = models.DateTimeField(verbose_name="Время создания")
-	updated = models.DateTimeField(verbose_name="Время обновления")
+	timestamp = models.DateTimeField(verbose_name="Время создания",default=datetime.now())
+	updated = models.DateTimeField(verbose_name="Время обновления",null=True,blank=True)
 	post_author = models.ForeignKey('Author',null=True,blank=True)
 
 	def __unicode__(self):

@@ -30,11 +30,6 @@ def post_create(request):
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
-	#if request.method == 'POST':
-	#	title = request.POST.get('title')
-	#	content = request.POST.get('content')
-	# 	#author = request.POST.get('post_author')
-	#	Post.objects.create(title=title,content=content,timestamp=datetime.now(),updated=datetime.now())
 	context={
 		'form' : form
 	}
@@ -42,10 +37,11 @@ def post_create(request):
 
 def post_update(request,id=None):
 	instance = get_object_or_404(Post,id=id)
-	form = PostForm(request.POST or None)
+	form = PostForm(request.POST or None,initial=)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
+
 	context = {
 		'title': instance.title,
 		'instance': instance,
