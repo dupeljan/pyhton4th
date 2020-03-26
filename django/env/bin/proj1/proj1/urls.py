@@ -19,8 +19,8 @@ from django.contrib import admin
 from django.conf.urls import include
 from django.contrib import admin
 
-myUrl = ['home','detail','update','delete','list']
+myUrl = ['home','detail/(?P<id>\d+)','update/(?P<id>\d+)','delete','list','create']
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    *[url(r'^'+x+'/$','posts.views.post_'+x) for x in myUrl]
+    *[url(r'^'+x+'/$','posts.views.post_'+x.split('/')[0]) for x in myUrl]
 ]

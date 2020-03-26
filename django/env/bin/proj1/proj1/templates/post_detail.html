@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> {{instance.title}}</title>
+</head>
+<body>
+<h1>{{instance.title}}
+</h1>
+<div>
+	
+	<p><h2>{{instance.content}}</h2></p>
+	<p>Автор: {{instance.post_author}}</p>
+	<p>Создан {{instance.timestamp}} обновлен {{instance.timeupdated}}</p>
+	<p>{{instance.post_likes}} лайков</p>
+	<a href="update/{{instance.id}}">
+		обновить
+	</a>
+</div>
+</body>
+</html>
