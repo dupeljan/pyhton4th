@@ -5,7 +5,7 @@ from datetime import datetime
 class Meta:
 	db_table ='posts'
 
-class Post (models.Model):
+class SpaceObject (models.Model):
 	id = models.AutoField(primary_key =True)
 	post_likes = models.IntegerField(default=0,verbose_name="Лайки")
 	title = models.CharField(max_length = 120,verbose_name="Заголовок")
