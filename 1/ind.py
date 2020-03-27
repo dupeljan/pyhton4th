@@ -50,6 +50,12 @@ def main():
 		return min_res[1] + min_res[2]
 
 '''
+'''
+Условие:
+надо поискать
+12 вариант 
+В прошлый раз 
+'''
 def main():
 	tree = set()
 	i = 0

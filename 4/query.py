@@ -14,4 +14,3 @@ resutl  = cur.fetchall()
 print(attr)
 for x in resutl:
 	print(x)
-
