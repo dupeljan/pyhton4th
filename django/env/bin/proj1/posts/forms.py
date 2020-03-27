@@ -1,9 +1,8 @@
 from django import forms
-from .models import Post
+from .models import SpaceObject
 class PostForm(forms.ModelForm):
-	model=forms.Form
-	fields=['title','content','post_author']
+	fields=['idobject','system_idsystem','system_idsystem','type_idtye','name','radius','mass']
 	class Meta:
-		model = Post
-		fields=['title','content','post_author']
+		model = SpaceObject
+		fields=['idobject','system_idsystem','system_idsystem','type_idtye','name','radius','mass']
 

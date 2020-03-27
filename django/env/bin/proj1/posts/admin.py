@@ -1,34 +1,26 @@
 from django.contrib import admin
-from .models import Post, Author, Comment
+from .models import SpaceObject, SpaceSystem, SpaceObjectType
 # Register your models here.
 
-class PostInstanceInline(admin.StackedInline):
-	model = Comment
-	extra = 0
 
-class PostModeAdmin(admin.ModelAdmin):
-	list_display = ['title','content','timestamp','updated',"post_likes"]
-	list_display_links = ['content']
-	list_filter = ['timestamp']
-	inlines = [PostInstanceInline]
-	ordering = ['-timestamp']
+class SpaceObjectModeAdmin(admin.ModelAdmin):
+	list_display = ['name','radius','mass']
+	list_display_links = ['name']
 	#fields=('title',)
 	#exclude = ('likes',)
 	class Meta:
-		model = Post
+		model = SpaceObject
 
-class AuthorModelAdmin(admin.ModelAdmin):
-	list_display = ['first_name','last_name','email']
-	list_filter = ['last_name']
-	ordering= ['last_name','first_name']
+class SpaceObjectTypeModelAdmin(admin.ModelAdmin):
+	list_display = ['name']
 	class Meta:
-		model = Author
+		model = SpaceObjectType
 
-class CommentModelAdmin(admin.ModelAdmin):
-	list_display = ['comment_text','comment_article']
+class SpaceSystemModelAdmin(admin.ModelAdmin):
+	list_display = ['name','size']
 	class Meta:
-		model = Comment
+		model = SpaceSystem
 
-admin.site.register(Post, PostModeAdmin)
-admin.site.register(Author,AuthorModelAdmin)
-admin.site.register(Comment,CommentModelAdmin)
+admin.site.register(SpaceObject, SpaceObjectModeAdmin)
+admin.site.register(SpaceSystem,SpaceSystemModelAdmin)
+admin.site.register(SpaceObjectType,SpaceObjectTypeModelAdmin)
