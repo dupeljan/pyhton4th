@@ -1,14 +1,1 @@
-<root>
-    <spaceObject idobject="0" mass="332946.0" name="Sun" radius="696.0" system_idsystem="0" type_idtye="1" />
-    <spaceObject idobject="1" mass="0.055" name="Mercury" radius="2.0" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="2" mass="0.815" name="Venus" radius="0.95" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="3" mass="1.0" name="Earth" radius="1.0" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="4" mass="0.0123" name="Moon" radius="0.0273" system_idsystem="0" type_idtye="2" />
-    <spaceObject idobject="5" mass="0.107" name="Mars" radius="0.532" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="6" mass="317.8" name="Jupiter" radius="11.209" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="7" mass="95.159" name="Saturn" radius="9.449" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="8" mass="14.536" name="Uranus" radius="4.007" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="9" mass="17.147" name="Neptune" radius="3.883" system_idsystem="0" type_idtye="0" />
-    <spaceObject idobject="10" mass="0.00218" name="Pluto" radius="0.1868" system_idsystem="0" type_idtye="3" />
-    <spaceObject idobject="11" mass="0.00218" name="Jluto" radius="0.1868" system_idsystem="0" type_idtye="3" />
-</root>
+<root><0><idobject>0</idobject><name>Sun</name><radius>696.0</radius><mass>332946.0</mass></0><1><idobject>1</idobject><name>Mercury</name><radius>2.0</radius><mass>0.055</mass></1><2><idobject>2</idobject><name>Venus</name><radius>0.95</radius><mass>0.815</mass></2><3><idobject>3</idobject><name>Earth</name><radius>1.0</radius><mass>1.0</mass></3><4><idobject>4</idobject><name>Moon</name><radius>0.0273</radius><mass>0.0123</mass></4><5><idobject>5</idobject><name>Mars</name><radius>0.532</radius><mass>0.107</mass></5><6><idobject>6</idobject><name>Jupiter</name><radius>11.209</radius><mass>317.8</mass></6><7><idobject>7</idobject><name>Saturn</name><radius>9.449</radius><mass>95.159</mass></7><8><idobject>8</idobject><name>Uranus</name><radius>4.007</radius><mass>14.536</mass></8><9><idobject>9</idobject><name>Neptune</name><radius>3.883</radius><mass>17.147</mass></9><10><idobject>10</idobject><name>Pluto</name><radius>0.1868</radius><mass>0.00218</mass></10></root>

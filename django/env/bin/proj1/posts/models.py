@@ -1,46 +1,40 @@
 from django.db import models
-from datetime import datetime
+
+class Meta:
+	db_table ='Planets'
 
 # Create your models here.
-class Meta:
-	db_table ='posts'
-
-class SpaceObject (models.Model):
+class SpaceObject(models.Model):
 	id = models.AutoField(primary_key =True)
-	post_likes = models.IntegerField(default=0,verbose_name="Лайки")
-	title = models.CharField(max_length = 120,verbose_name="Заголовок")
-	genre = (('r1','Роман'),('p','Поэма'),('r2','Рассказ'))
-	genre = models.CharField(max_length=30,verbose_name="Жанр",choices= genre,default='r1')
-	content = models.TextField(verbose_name="Текст",default= "Дефолтный текст")
-	timestamp = models.DateTimeField(verbose_name="Время создания",default=datetime.now())
-	updated = models.DateTimeField(verbose_name="Время обновления",null=True,blank=True)
-	post_author = models.ForeignKey('Author',null=True,blank=True)
+	system_idsystem = models.ForeignKey('SpaceSystem')
+	type_idtye = models.ForeignKey('SpaceObjectType')
+	name = models.CharField(max_length = 120)
+	radius = models.FloatField()
+	mass = models.FloatField()
 
 	def __unicode__(self):
-		return self.title
+		return self.name
 
 	def __str__(self):
-		return self.title
+		return self.name
 
-class Author(models.Model):
-	id = models.AutoField(primary_key=True)
-	first_name = models.CharField(max_length=120,verbose_name= "Имя")
-	last_name = models.CharField(max_length=120, verbose_name= "Фамилия")
-	email =models.EmailField(verbose_name= "Email")
+class SpaceSystem(models.Model):
+	id = models.AutoField(primary_key =True)
+	name = models.CharField(max_length = 120)
+	size = models.FloatField()
 
 	def __unicode__(self):
-		return self.first_name + " " + self.last_name
+		return self.name
 
 	def __str__(self):
-		return self.first_name + " " + self.last_name
+		return self.name
 
-class Comment(models.Model):
-	id = models.AutoField(primary_key= True)
-	comment_text = models.TextField(verbose_name="Комментарий",default='')
-	comment_article = models.ForeignKey(Post)
 
+class SpaceObjectType(models.Model):
+	id = models.AutoField(primary_key =True)
+	name = models.CharField(max_length = 120)
 	def __unicode__(self):
-		return self.comment_text
+		return self.name
 
 	def __str__(self):
-		return self.comment_text
+		return self.name

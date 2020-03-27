@@ -21,6 +21,17 @@ cur.execute(sql.format(*inp))
 conn.commit()
 
 
+attr = ("idobject", "o.name","radius","mass","s.name","t.name")
+sql = """
+select {},{},{},{},{},{} from
+   (object o join system s on o.system_idsystem=s.idsystem) a
+   join type t on a.type_idtye = t.idtye;
+""".format(*attr)
+
+cur.execute(sql)
+result  = cur.fetchall()
+
+
 print("Content-type: text/html\n")
 print("""<!DOCTYPE HTML>
         <html>
@@ -29,10 +40,29 @@ print("""<!DOCTYPE HTML>
             <title>ОТВЕТ</title>
         </head>
         <body>""")
+print("""<style>table {
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 1px solid black;
+}</style>""")
 
 print("<h1>Обработка данных форм!</h1>")
 print("<p>",sql.format(*inp),"</p>")
 
+print("<table>")
+print("<tr>")
+for x in result:
+	print("<tr>")
+	for y in x:
+		print ("<td>",y,"</td>")
+	print("</tr>")
+
+
+
+
+print("</table>")
 
 
 print("""</body>
