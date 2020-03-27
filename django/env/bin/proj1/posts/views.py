@@ -26,7 +26,7 @@ def post_list(request):
 	return render(request,'index.html',context)
 
 def post_create(request):
-	form = PostForm(request.SpaceObject or None)
+	form = PostForm(request.POST or None)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
@@ -37,13 +37,13 @@ def post_create(request):
 
 def post_update(request,id=None):
 	instance = get_object_or_404(SpaceObject,id=id)
-	form = PostForm(request.SpaceObject or None,instance= instance)
+	form = PostForm(request.POST or None,instance= instance)
 	if form.is_valid():
 		instance = form.save(commit=False)
 		instance.save()
 
 	context = {
-		'title': instance.title,
+		'title': instance.name,
 		'instance': instance,
 		'form': form
 	}

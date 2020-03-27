@@ -4,8 +4,8 @@ class Meta:
 	db_table ='Planets'
 
 # Create your models here.
-class SpaceObject:
-	idobject = models.AutoField(primary_key =True)
+class SpaceObject(models.Model):
+	id = models.AutoField(primary_key =True)
 	system_idsystem = models.ForeignKey('SpaceSystem')
 	type_idtye = models.ForeignKey('SpaceObjectType')
 	name = models.CharField(max_length = 120)
@@ -18,8 +18,8 @@ class SpaceObject:
 	def __str__(self):
 		return self.name
 
-class SpaceSystem:
-	idsystem = models.AutoField(primary_key =True)
+class SpaceSystem(models.Model):
+	id = models.AutoField(primary_key =True)
 	name = models.CharField(max_length = 120)
 	size = models.FloatField()
 
@@ -29,8 +29,9 @@ class SpaceSystem:
 	def __str__(self):
 		return self.name
 
-class SpaceObjectType:
-	idtype = models.AutoField(primary_key =True)
+
+class SpaceObjectType(models.Model):
+	id = models.AutoField(primary_key =True)
 	name = models.CharField(max_length = 120)
 	def __unicode__(self):
 		return self.name

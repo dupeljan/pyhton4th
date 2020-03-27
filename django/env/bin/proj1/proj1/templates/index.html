@@ -5,14 +5,19 @@
 </head>
 <title>{{title}}</title>
 <body>
-	
+<a href="/create">
+	<h4>
+		Создать новый космический объект
+	</h4>
+</a>	
 {%for i in queryset%}
 <div>
 	<a href="/detail/{{i.id}}">
-		<h2>{{i.title}}</h2>
+		<h2>{{i.name}}</h2>
 	</a>
-	<p>{{i.content}}</p>
-	<p><i>{{i.post_author}}</i></p>
+	<p>Система: {{i.system_idsystem}}</p>
+	<p><i>Тип: {{i.type_idtye}}</i></p>
+
 
 </div>
 {%endfor%}

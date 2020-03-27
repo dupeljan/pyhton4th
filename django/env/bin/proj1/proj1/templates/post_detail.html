@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title> {{instance.title}}</title>
+	<title> {{instance.name}}</title>
 </head>
 <body>
-<h1>{{instance.title}}
+<h1>{{instance.name}}
 </h1>
 <div>
 	
-	<p><h2>{{instance.content}}</h2></p>
-	<p>Автор: {{instance.post_author}}</p>
-	<p>Создан {{instance.timestamp}} обновлен {{instance.timeupdated}}</p>
-	<p>{{instance.post_likes}} лайков</p>
+	<h2>Имя: {{instance.name}}</h2>
+	<p>Система: {{instance.system_idsystem}}</p>
+	<p><i>Тип: {{instance.type_idtye}}</i></p>
+	<p>Радиус (в Земных единицах): {{instance.radius}}</p>
+	<p>Масса (в Земных единицах): {{instance.mass}}</p>
 	<a href="/update/{{instance.id}}">
 		обновить
 	</a>
