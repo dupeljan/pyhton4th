@@ -90,7 +90,3 @@ with open(INPUT,'r',newline='') as inp:
 					num = (num + 1) % linesCount
 				writer.writerow([num] + lines[num])
 				choosen += [num]
-
-
-
-
