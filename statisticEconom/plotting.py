@@ -7,31 +7,29 @@ from scipy import stats
 import math
 import os
 
-birthday = [22,8] 
-col = birthday[0]
-row = birthday[1]
+
 
 EmpericDistributionFunName = "Эмпирическая функция расперделения.png"
 HistName = "Гисторамма.png"
 PoligonName = "Полигон.png"
 CorrelationName = "Кореляционное облако.png"
 
-DIRNAME = str(col)+"." + str(row)
+
 DPI = 300
 FIG_DIMS = [16,9]
 
 
-INPUT = "Sample" + str(col)+"." + str(row) + ".csv"
-OUTPUT = "CorrelationTable" + str(col)+"." + str(row) + ".csv"
+OUTPUTCORR = "CorrelationTable.csv"
 
 class StatisticSolver:
-	def __init__(self):
+	def __init__(self,dirname,inputFile):
+		self.dirname = dirname
 
 		self.partA = True
 		self.partB = True
 
 		# Get data from sample
-		table = list(csv.reader(open(INPUT,'r',newline='')))
+		table = list(csv.reader(open(inputFile,'r',newline='')))
 		# Range it 
 		self.range_ = table
 		self.range_ = [[int(x[0]),int(x[1]), int(x[2])] for x in self.range_]
@@ -98,7 +96,7 @@ class StatisticSolver:
 			self.pi.append(F((2*x+self.h)/2))
 			numerator = (self.ni[i] - self.n * self.pi[-1]) ** 2
 			sum_ += numerator / (self.n * self.pi[-1])
-		
+		self.K = sum_
 		print("Pirson kriterion",sum_)
 
 		
@@ -107,7 +105,7 @@ class StatisticSolver:
 		self.max_y = max([x[2] for x in self.range_])
 		self.len_y = self.max_y - self.min_y
 		pairs = [[x[1], x[2]] for x in self.range_ ]
-		with open(OUTPUT,'w',newline='') as out:
+		with open(os.path.join(self.dirname, OUTPUTCORR),'w',newline='') as out:
 			writer = csv.writer(out, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
 			writer.writerow(["#"] + [ x for x in range(self.min_,self.max_+1)])
@@ -156,9 +154,55 @@ class StatisticSolver:
 		self.xAccum = self.xAccum[1:]
 		self.yAccum = self.yAccum[1:]
 
+	def putStatistic(self,filename,birthday):
+		with open(os.path.join(self.dirname,filename), 'w') as out:
+			lines = list()
+			lines += ["Решение задачи по статистике"]
+			lines += ["ДР " + str( birthday)]
+			lines += ["1) см файл Sample.csv"]
+			lines += ["2) см изображения в текущей папке"]
+			lines += ["3) Для множества Х"]
+			lines += ["Размер интервала " + str(self.h)]
+			lines += ["Кол-во групп " + str(self.bins)]
+			lines += ["Размер выборки " + str(self.n)]
+			lines += ["Выборочная средняя " + str(self.mean_)]
+			lines += ["Выборочная дисперсия " + str(self.disp)]
+			lines += ["Выборочное среднеквадратическое отклонение " + str(self.standDeviation)]
+			lines += ["Несмещенная выборочная дисперсия " + str(self.dispEstim)]
+			lines += ["Несмещенное выборочное среднеквадратическое отклонение " + str(self.standDeviationEstim)]
+			lines += ["Точность " + str(self.accuracy)]
+			lines += ["Параметр t " + str(self.t)]
+			lines += ["Параметр q " + str(self.q)]
+			lines += ["Параметр дельта " + str(self.delta)]
+			lines += ["Интервальная оценка мат ожидания "]
+			lines += [str(self.mean_ - self.delta )+','+ str(self.mean_ + self.delta)]
+			lines += ["Интервальная оценка среднеквадратического отклонения "]		
+			lines += \
+						[str(self.standDeviationEstim / ( 1 + self.q) )+ ',' + str(self.standDeviationEstim / ( 1 - self.q))]
+			lines += ["4) Критерий Пирсона " + str(self.K)]
+			self.xi = list()
+			for x in [0.95,0.975,0.99]:
+
+				self.xi += [stats.distributions.chi2.ppf(x,self.bins -3)]
+			
+				lines += [" На уровне значимости " + str(np.round(1-x,3)) + " хи квадрат критический равен " + 
+						str(self.xi[-1])]
+				var = "принимается" if self.xi[-1] > self.K else "отвергается"
+				lines += ["Гипотеза о норматьном распределении " + var]
+				if var == "принимается":
+					break
+			lines += ["5) см изображения в текущей папке"]
+			lines += ["6) см файл CorrelationTable.csv"]
+			lines += ["7) Коэффициент кореляции " + str(self.CorrelationCoef)]
+			lines += ["8) Уравнение регрессии: y = ax + b"]
+			lines += ["a " + str(self.a)]
+			lines += ["b " + str(self.b)]
+			lines = [ x + "\n" for x in lines ]
+			out.writelines(lines)
+
 	def plot(self):
 
-		os.makedirs(DIRNAME, exist_ok=True)
+		
 		plt.rcParams["figure.figsize"] = FIG_DIMS
 		if self.partA:
 
@@ -166,7 +210,7 @@ class StatisticSolver:
 			plt.step(self.xAccum, self.yAccum)
 			plt.title("Эмпирическая функция расперделения")
 			#plt.show()
-			plt.savefig(os.path.join(DIRNAME,EmpericDistributionFunName),dpi=DPI)
+			plt.savefig(os.path.join(self.dirname,EmpericDistributionFunName),dpi=DPI)
 			plt.clf()
 
 			# Gistogram for X var
@@ -180,7 +224,7 @@ class StatisticSolver:
 			#figure = plt.gcf()
 
 			#figure.set_size_inches(10, 6)
-			plt.savefig(os.path.join(DIRNAME,HistName),dpi=DPI)
+			plt.savefig(os.path.join(self.dirname,HistName),dpi=DPI)
 			plt.clf()
 
 			# Poligon for X var
@@ -190,7 +234,7 @@ class StatisticSolver:
 			plt.grid(axis='y')
 			plt.title("Полигон")
 			#plt.show()
-			plt.savefig(os.path.join(DIRNAME,PoligonName),dpi=DPI)
+			plt.savefig(os.path.join(self.dirname,PoligonName),dpi=DPI)
 			plt.clf()
 
 		if self.partB:
@@ -201,11 +245,12 @@ class StatisticSolver:
 			plt.title("Кореляционное облако")
 			plt.legend()
 			#plt.show()
-			plt.savefig(os.path.join(DIRNAME,CorrelationName),dpi=DPI)
+			plt.savefig(os.path.join(self.dirname,CorrelationName),dpi=DPI)
 			plt.clf()
 def main():
-	s = StatisticSolver()
-	s.plot()
+	pass
+	#s = StatisticSolver()
+	#s.plot()
 
 if __name__ == '__main__':
 	main()
