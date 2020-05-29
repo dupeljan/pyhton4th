@@ -10,13 +10,24 @@ import os
 birthday = [22,8] 
 col = birthday[0]
 row = birthday[1]
+
+EmpericDistributionFunName = "Эмпирическая функция расперделения.png"
+HistName = "Гисторамма.png"
+PoligonName = "Полигон.png"
+CorrelationName = "Кореляционное облако.png"
+
+DIRNAME = str(col)+"." + str(row)
+DPI = 300
+FIG_DIMS = [16,9]
+
+
 INPUT = "Sample" + str(col)+"." + str(row) + ".csv"
 OUTPUT = "CorrelationTable" + str(col)+"." + str(row) + ".csv"
 
 class StatisticSolver:
 	def __init__(self):
 
-		self.partA = False
+		self.partA = True
 		self.partB = True
 
 		# Get data from sample
@@ -146,12 +157,17 @@ class StatisticSolver:
 		self.yAccum = self.yAccum[1:]
 
 	def plot(self):
+
+		os.makedirs(DIRNAME, exist_ok=True)
+		plt.rcParams["figure.figsize"] = FIG_DIMS
 		if self.partA:
 
 			# Emperic distribution fun
 			plt.step(self.xAccum, self.yAccum)
 			plt.title("Эмпирическая функция расперделения")
-			plt.show()
+			#plt.show()
+			plt.savefig(os.path.join(DIRNAME,EmpericDistributionFunName),dpi=DPI)
+			plt.clf()
 
 			# Gistogram for X var
 			plt.bar(self.x,self.y,width=self.h)
@@ -160,7 +176,12 @@ class StatisticSolver:
 			plt.grid(axis='y')
 			plt.title("Гисторамма")
 			#plt.hist(rangeSample,bins=len_+1)
-			plt.show()
+			#plt.show()
+			#figure = plt.gcf()
+
+			#figure.set_size_inches(10, 6)
+			plt.savefig(os.path.join(DIRNAME,HistName),dpi=DPI)
+			plt.clf()
 
 			# Poligon for X var
 			plt.plot(self.x,self.y)
@@ -168,7 +189,9 @@ class StatisticSolver:
 			plt.yticks(np.arange(min(self.y),max(self.y)+1,1.0))
 			plt.grid(axis='y')
 			plt.title("Полигон")
-			plt.show()
+			#plt.show()
+			plt.savefig(os.path.join(DIRNAME,PoligonName),dpi=DPI)
+			plt.clf()
 
 		if self.partB:
 			# Scatter XY
@@ -177,7 +200,9 @@ class StatisticSolver:
 				,'r',label='Прямая регрессии y = {0}x + ({1})'.format(np.round(self.a,3),np.round(self.b,3) ))
 			plt.title("Кореляционное облако")
 			plt.legend()
-			plt.show()
+			#plt.show()
+			plt.savefig(os.path.join(DIRNAME,CorrelationName),dpi=DPI)
+			plt.clf()
 def main():
 	s = StatisticSolver()
 	s.plot()
