@@ -1,6 +1,8 @@
 from sample import genSample
 from plotting import StatisticSolver
+import shutil
 import os
+
 def main():
 	birthdays = [[22,8],[17,7],[6,7]]
 	for birthday in birthdays: 
@@ -11,6 +13,7 @@ def main():
 		ss = StatisticSolver(dirname= dirname,inputFile=sampleFile)
 		ss.plot()
 		ss.putStatistic("Текс.txt",birthday)
+		shutil.make_archive(dirname , 'zip', dirname)
 
 
 if __name__ == '__main__':
